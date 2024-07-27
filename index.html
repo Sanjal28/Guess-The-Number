@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess The Number</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="rules.html">
+</head>
+<body>
+    <h1>Guess The Number From 1 To 10</h1>
+    <input id="checknumber">
+    <button onclick="check()">Check</button>
+    <p id="result">You Are Right/Wrong</p>
+    <p id="score">Score:10</p>
+    <p id="comvalue">Generated Value Is:</p>
+    <!-- ==============rules============ -->
+    <button onclick="toggleRules()">Show Rules and Regulations</button>
+    <div class="rules-container" id="rulesContainer">
+        <h2>Rules and Regulations for "Guess The Number From 1 To 10" Game</h2>
+        <h3>Objective:</h3>
+        <p>The player must guess a randomly generated number between 1 and 10.</p>
+        <h3>Gameplay:</h3>
+        <p>Enter a number in the input field and click the "Check" button to submit your guess.
+            A new random number is generated each time you click "Check."</p>
+        <h3>Scoring:</h3>
+        <p>The game starts with a score of 10.
+            For each incorrect guess, 1 point is deducted from the score.</p>
+        <h3>Winning:</h3>
+        <p>If you guess the number correctly, you win the round. A message will confirm your correct guess, and the generated number will be displayed.</p>
+        <h3>Input Restrictions:</h3>
+        <p>Only numbers between 1 and 10 are valid inputs. If you enter a number greater than 10, you will receive a warning, and your score will decrease.</p>
+        <h3>Game End:</h3>
+        <p>The game ends when the score reaches 0. The player can refresh the page to play again.</p>
+        <h3>Result Display:</h3>
+        <p>After each guess, the game will display whether your guess was correct or incorrect and show the randomly generated number for that round.</p>
+    </div>
+
+
+
+
+    <script>
+        var checknumber=document.getElementById("checknumber")
+        var result=document.getElementById("result")
+        var score=document.getElementById("score")
+        var comvalue=document.getElementById("comvalue")
+        var initialscore=10
+        function check()
+        {
+            var generatednum=Math.floor((Math.random()*10)+1)
+            var num=Number(checknumber.value)
+            if(num == generatednum && num<=10 && initialscore>0){
+                result.textContent="Hurray! You Are Right"
+                alert("Hey,Congratulations,You've Guessed Right.")
+                comvalue.textContent="Generated Value Is:"+generatednum
+            }
+            else if(num<=10 && initialscore>0){
+                result.textContent="ohh! You Are Wrong"
+                initialscore=initialscore-1
+                score.textContent="Score:"+initialscore
+                comvalue.textContent="Generated Value Is:"+generatednum
+                if(initialscore==0){
+                    result.textContent="Refresh To Restart The Game"
+                    score.textContent="Score:-"
+                }
+            }else if(num>10 && initialscore>0){
+                result.textContent="Warning!Enter Number Less Than Or Equal To 10"
+                initialscore=initialscore-1
+                score.textContent="Score:"+initialscore
+                comvalue.textContent="Generated Value Is:"+generatednum
+            }
+        }
+        // =======rules-script========
+        function toggleRules() {
+            var rulesContainer = document.getElementById("rulesContainer");
+            if (rulesContainer.style.display === "none"|| rulesContainer.style.display === "") {
+                rulesContainer.style.display = "block";
+            } else {
+                rulesContainer.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
